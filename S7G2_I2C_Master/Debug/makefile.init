@@ -1,0 +1,13 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+arg1 = $(1)
+export PATH=C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin\;C:\Renesas\e2_studio\eclipse\plugins\com.renesas.ide.exttools.busybox.win32.x86_64_1.3.6.v20230615-0931\bin\;C:\Renesas\e2_studio\eclipse\plugins\com.renesas.ide.exttools.gnumake.win32.x86_64_4.3.0.v20220121-1024\mk\;C:\Renesas\e2_studio\eclipse\plugins\com.renesas.ide.exttools.scandep.win32.x86_64_1.0.0.v20230915-1033\sd\;;C:/Renesas/e2_studio/eclipse//plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143/jre/bin/server;C:/Renesas/e2_studio/eclipse//plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.10.v20240120-1143/jre/bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Embarcadero\Studio\22.0\bin;C:\Users\Public\Documents\Embarcadero\Studio\22.0\Bpl;C:\Program Files (x86)\Embarcadero\Studio\22.0\bin64;C:\Users\Public\Documents\Embarcadero\Studio\22.0\Bpl\Win64;C:\Program Files (x86)\Embarcadero\Studio\21.0\bin;C:\Users\Public\Documents\Embarcadero\Studio\21.0\Bpl;C:\Program Files (x86)\Embarcadero\Studio\21.0\bin64;C:\Users\Public\Documents\Embarcadero\Studio\21.0\Bpl\Win64;C:\ProgramData\LLVM for Renesas RL78 10.0.0.202209\binC:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\TDM-GCC-64\bin;C:\Program Files\Microchip\xc8\v2.40\bin;C:\Program Files\gnuplot\bin;C:\Program Files\Microchip\xc32\v4.21\bin;C:\Program Files (x86)\GnuWin32\bin;;C:\Program Files\Microchip\xc16\v2.10\bin;;I:\Programs\Microchip\xc16\v2.10\bin;I:\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\GNU Tools Arm Embedded\9 2019-q4-major\bin;C:\Program Files (x86)\GNU Tools ARM Embedded\7 2017-q4-major\bin;C:\ProgramData\LLVM for Renesas RL78 10.0.0.202209\bin;C:\Users\www\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\www\AppData\Local\Programs\Python\Python310\;C:\Users\www\AppData\Local\Microsoft\WindowsApps;C:\modeltech64_10.6d\win64;C:\Program Files (x86)\GnuWin32\bin;C:\altera\13.1\modelsim_ase\win32aloem;C:\Renesas\e2_studio\eclipse
+export TCINSTALL=C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10$(call arg1,\)
+export CWD=$(CURDIR)
+export AMS_LICENSE_PATH=
+export TC_VERSION=10.3.1.20210824
+export AMS_KEEP_FILE=
+export PWD=$(CURDIR)
+export GCC_VERSION=10.3.1

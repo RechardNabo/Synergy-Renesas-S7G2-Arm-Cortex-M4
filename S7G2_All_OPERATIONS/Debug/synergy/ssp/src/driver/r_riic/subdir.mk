@@ -1,0 +1,26 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../synergy/ssp/src/driver/r_riic/r_riic.c 
+
+C_DEPS += \
+./synergy/ssp/src/driver/r_riic/r_riic.d 
+
+OBJS += \
+./synergy/ssp/src/driver/r_riic/r_riic.o 
+
+SREC += \
+S7G2_All_OPERATIONS.srec 
+
+MAP += \
+S7G2_All_OPERATIONS.map 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+synergy/ssp/src/driver/r_riic/%.o: ../synergy/ssp/src/driver/r_riic/%.c
+	$(file > $@.in,-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -O2 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -g -gdwarf-4 -D_RENESAS_SYNERGY_ -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy_cfg/ssp_cfg/bsp" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy_cfg/ssp_cfg/driver" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy/ssp/inc" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy/ssp/inc/bsp" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy/ssp/inc/bsp/cmsis/Include" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy/ssp/inc/driver/api" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy/ssp/inc/driver/instances" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/src" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/src/synergy_gen" -I"F:/Advanced Engineering/Programming/e2_studio/S7G2_All_OPERATIONS/synergy_cfg/ssp_cfg/framework/el" -std=c99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" -x c "$<")
+	@echo Building file: $< && arm-none-eabi-gcc @"$@.in"
+
