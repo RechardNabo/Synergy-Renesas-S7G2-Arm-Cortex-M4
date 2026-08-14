@@ -1,0 +1,11 @@
+/Debug/
+/Release/
+# Example projects with build artifacts
+/ADC/
+/Blink_LED/
+/LCD_Display/
+/PWM_Controller/
+/Relay_Controller/
+/Temperature_Sensor/
+# SSP framework (generated, large)
+/synergy/

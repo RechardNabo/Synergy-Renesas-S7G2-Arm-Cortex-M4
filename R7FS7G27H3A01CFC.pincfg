@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<v1:pinSettings xmlns:v1="http://www.tasking.com/schema/pinsettings/v1.1">
+  <v1:pinMappingsRef version="2.05" file="" />
+  <v1:deviceSetting id="renesas.s7g2_fc" pattern="R7FS7G2*******FC">
+    <v1:packageSetting id="renesas.176lqfp" />
+  </v1:deviceSetting>
+  <!-- Debug: SWD mode (frees P110/P111 for GLCD) -->
+  <v1:configSetting configurationId="debug0.mode" altId="debug0.mode.swd" />
+  <v1:configSetting configurationId="debug0.swdio" altId="debug0.swdio.p108">
+    <v1:connectionSetting altId="p108.debug0.swdio" />
+  </v1:configSetting>
+  <v1:configSetting configurationId="debug0.swclk" altId="debug0.swclk.p300">
+    <v1:connectionSetting altId="p300.debug0.swclk" />
+  </v1:configSetting>
+  <v1:configSetting configurationId="p108.gpio_mode" altId="p108.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p108" altId="p108.debug0.swdio">
+    <v1:connectionSetting altId="debug0.swdio.p108" />
+  </v1:configSetting>
+  <v1:configSetting configurationId="p300.gpio_mode" altId="p300.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p300" altId="p300.debug0.swclk">
+    <v1:connectionSetting altId="debug0.swclk.p300" />
+  </v1:configSetting>
+  <!-- LED1 (Red) - P305 active low -->
+  <v1:configSetting configurationId="p305.gpio_mode" altId="p305.gpio_mode.gpio_mode_out.low" />
+  <v1:configSetting configurationId="p305" altId="p305.output.low" />
+  <!-- LED2 (Green) - P801 active high -->
+  <v1:configSetting configurationId="p801.gpio_mode" altId="p801.gpio_mode.gpio_mode_out.high" />
+  <v1:configSetting configurationId="p801" altId="p801.output.high" />
+  <!-- USB Host VBUS enable - Pb00 -->
+  <v1:configSetting configurationId="pb00.gpio_mode" altId="pb00.gpio_mode.gpio_mode_out.high" />
+  <v1:configSetting configurationId="pb00" altId="pb00.output.high" />
+  <!-- USB Host VBUS monitor - Pb01 -->
+  <v1:configSetting configurationId="pb01.gpio_mode" altId="pb01.gpio_mode.gpio_mode_in" />
+  <v1:configSetting configurationId="pb01" altId="pb01.input" />
+  <!-- USB Host fault monitor - P415 -->
+  <v1:configSetting configurationId="p415.gpio_mode" altId="p415.gpio_mode.gpio_mode_in" />
+  <v1:configSetting configurationId="p415" altId="p415.input" />
+  <!-- GPT1 PWM output - P405 (GTIOCA) -->
+  <v1:configSetting configurationId="gpt1.gtioca" altId="gpt1.gtioca.p405" />
+  <v1:configSetting configurationId="gpt1.mode" altId="gpt1.mode.gtiocaorgtiocb.b" />
+  <v1:configSetting configurationId="gpt1.pairing" altId="gpt1.pairing.b" />
+  <v1:configSetting configurationId="p405.gpio_mode" altId="p405.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p405" altId="p405.gpt1.gtioca">
+    <v1:connectionSetting altId="gpt1.gtioca.p405" />
+  </v1:configSetting>
+  <!-- PMOD SPI (J13) - SCI0 channel: r_sci_spi on ch0 -->
+  <!-- P100 = SCI0_RXD (MISO in master mode) -->
+  <v1:configSetting configurationId="p100.gpio_mode" altId="p100.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p100" altId="p100.sci0.rxd">
+    <v1:connectionSetting altId="sci0.rxd.p100" />
+  </v1:configSetting>
+  <!-- P101 = SCI0_TXD (MOSI in master mode) -->
+  <v1:configSetting configurationId="p101.gpio_mode" altId="p101.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p101" altId="p101.sci0.txd">
+    <v1:connectionSetting altId="sci0.txd.p101" />
+  </v1:configSetting>
+  <!-- P102 = SCI0_SCK -->
+  <v1:configSetting configurationId="p102.gpio_mode" altId="p102.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p102" altId="p102.sci0.sck">
+    <v1:connectionSetting altId="sci0.sck.p102" />
+  </v1:configSetting>
+  <!-- P103 = SCI0_CTS (used as chip select / SSL) -->
+  <v1:configSetting configurationId="p103.gpio_mode" altId="p103.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p103" altId="p103.sci0.cts">
+    <v1:connectionSetting altId="sci0.cts.p103" />
+  </v1:configSetting>
+  <!-- PMOD IIC (J18) - IIC1 channel: r_iic on ch1 -->
+  <!-- P205 = IIC1_SCL -->
+  <v1:configSetting configurationId="p205.gpio_mode" altId="p205.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p205" altId="p205.iic1.scl">
+    <v1:connectionSetting altId="iic1.scl.p205" />
+  </v1:configSetting>
+  <!-- P206 = IIC1_SDA -->
+  <v1:configSetting configurationId="p206.gpio_mode" altId="p206.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p206" altId="p206.iic1.sda">
+    <v1:connectionSetting altId="iic1.sda.p206" />
+  </v1:configSetting>
+  <!-- PMOD UART (J16) - SCI3 channel: r_sci_uart on ch3 -->
+  <!-- P408 = SCI3_RXD -->
+  <v1:configSetting configurationId="p408.gpio_mode" altId="p408.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p408" altId="p408.sci3.rxd">
+    <v1:connectionSetting altId="sci3.rxd.p408" />
+  </v1:configSetting>
+  <!-- P409 = SCI3_TXD -->
+  <v1:configSetting configurationId="p409.gpio_mode" altId="p409.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p409" altId="p409.sci3.txd">
+    <v1:connectionSetting altId="sci3.txd.p409" />
+  </v1:configSetting>
+  <!-- P410 = SCI3_SCK (optional, for synchronous mode) -->
+  <v1:configSetting configurationId="p410.gpio_mode" altId="p410.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p410" altId="p410.sci3.sck">
+    <v1:connectionSetting altId="sci3.sck.p410" />
+  </v1:configSetting>
+  <!-- P411 = SCI3_CTS -->
+  <v1:configSetting configurationId="p411.gpio_mode" altId="p411.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p411" altId="p411.sci3.cts">
+    <v1:connectionSetting altId="sci3.cts.p411" />
+  </v1:configSetting>
+  <!-- CAN1 Channel B (Arduino header) - external transceiver required -->
+  <!-- P512 = CAN1_CTX -->
+  <v1:configSetting configurationId="can1.mode" altId="can1.mode.enabled.b" />
+  <v1:configSetting configurationId="can1.pairing" altId="can1.pairing.b" />
+  <v1:configSetting configurationId="can1.ctx" altId="can1.ctx.p512" />
+  <v1:configSetting configurationId="can1.crx" altId="can1.crx.p511" />
+  <v1:configSetting configurationId="p512.gpio_mode" altId="p512.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p512" altId="p512.can1.ctx">
+    <v1:connectionSetting altId="can1.ctx.p512" />
+  </v1:configSetting>
+  <!-- P511 = CAN1_CRX -->
+  <v1:configSetting configurationId="p511.gpio_mode" altId="p511.gpio_mode.gpio_mode_peripheral" />
+  <v1:configSetting configurationId="p511" altId="p511.can1.crx">
+    <v1:connectionSetting altId="can1.crx.p511" />
+  </v1:configSetting>
+</v1:pinSettings>
