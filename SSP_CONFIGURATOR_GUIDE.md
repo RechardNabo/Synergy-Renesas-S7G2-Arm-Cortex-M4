@@ -1,5 +1,22 @@
 # SSP Configurator Guide — S7G2 Maximum Performance
 
+> ## ⚠️ CORRECTIONS APPLIED (verified against README + Renesas SSP pack data)
+>
+> The original version of this guide contained several pin-mapping errors that have been corrected in `configuration.xml` and `R7FS7G27H3A01CFC.pincfg`. The corrections below supersede any conflicting statements in the rest of this document.
+>
+> | Item | Old (wrong) | Corrected | Reason |
+> |------|-------------|-----------|--------|
+> | **PMOD SPI driver** | r_sci_spi on SCI0 | **r_rspi on SPI0** (P100-P103) | SCI0 is needed for PMOD UART; P100-P103 support native SPI0 (MISO/MOSI/RSPCK/SSL0) |
+> | **PMOD UART channel** | SCI3 on P408-P411 | **SCI0 group B** on P410-P413 | README §5.5 shows J16 wired to P410(RXD)/P411(TXD)/P412(DTS)/P413(CTS); P410-P413 only have SCI0 capability, not SCI3 |
+> | **P408 / P409 function** | SCI3 RXD/TXD | **GPIO inputs (IRQ7 / IRQ6)** | README shows P408=IRQ7 (PMOD UART interrupt), P409=IRQ6 (PMOD SPI interrupt) — not part of UART signal path |
+> | **PMOD IIC GPIO** | P202, P203, P204 | **P203, P204 only** | README §5.5 J18 table lists only P203 (GPIO1) and P204 (GPIO2); P202 is NOT part of J18 |
+> | **GLCD pins** | P110, P211-P226 | **P111-P115 only** | Pack data confirms P110/P211-P226 have no GLCDC capability on this MCU package |
+> | **Ethernet** | "RMII1 available" | **Only RMII0 exists** | S7G2 has one Ethernet MAC (ETHERC0); J5 must use RMII0 |
+> | **Timers** | 2 (g_timer0 PWM, g_timer1 1ms) | **4 timers** | Added g_timer2 (10ms sensor poll, IRQ priority 12) and g_timer3 (100ms comms timeout, IRQ priority 12) for firmware operations |
+>
+> **Current module count: 21 modules, 21 stack references.**
+> **Current pin count: 36 symbolic names, all 36 configured (zero missing).**
+
 **Target device:** R7FS7G27H3A01CFC (176-pin LQFP, 4MB flash, 640KB SRAM, Arm Cortex-M4F)
 **Board:** Renesas SA-BEST 2017 Target Board (Synergy S7G2)
 **SSP version:** 2.7.0 (installed) — projects originally built with 2.4.0
@@ -47,9 +64,9 @@
 | J3 | USB Device (Full-Speed) | USB Device port | r_usb_basic (device) |
 | J4 | USB Host (High-Speed) | USB Host port | r_usb_basic (host) |
 | J5 | Ethernet PHY connector | RMII to external PHY | r_ether |
-| J13 | PMOD SPI | SPI + 3 GPIO + IRQ | r_sci_spi |
+| J13 | PMOD SPI | SPI + 3 GPIO + IRQ | r_rspi (SPI0) |
 | J15 | Graphics LCD | Direct TFT LCD drive | r_glcd + r_drw |
-| J16 | PMOD UART | UART + 3 GPIO + IRQ | r_sci_uart |
+| J16 | PMOD UART | UART + 3 GPIO + IRQ | r_sci_uart (SCI0 group B) |
 | J18 | PMOD IIC | I2C + 2 GPIO | r_iic |
 | J19 | USB (J-Link debug) | SWD debug to PC | No driver — debugger |
 | J34 | SWD header | External SWD debug | No driver — debugger |
@@ -225,32 +242,39 @@ For maximum performance, use XTAL → PLL x20 → 240 MHz ICLK.
 
 Note: P405 is shared between Ethernet TXEN and GPT1 PWM output. If using Ethernet, do NOT use GPT1 GTIOCA on P405. Use a different GPT channel for PWM.
 
-### PMOD UART (J16)
+### PMOD UART (J16) — CORRECTED
+
+**Corrected wiring (per README §5.5 + silicon pack data):**
 
 | Pin # | Pin | Function | Board Use |
 |-------|-----|----------|-----------|
-| 36 | P409 | SCI3.TXD | UART TX data |
-| 37 | P408 | SCI3.RXD | UART RX data |
-| 38 | P411 | SCI3.CTS | UART CTS (clear to send) |
-| 40 | P410 | SCI3.SCK | UART SCK (sync mode, optional) |
+| 40 | P410 | SCI0.RXD (group B) | UART RX data |
+| 41 | P411 | SCI0.TXD (group B) | UART TX data |
+| 39 | P412 | SCI0.SCK (group B) | UART SCK / DTS |
+| 38 | P413 | SCI0.CTS (group B) | UART CTS |
+| 37 | P408 | IRQ7 (GPIO input) | PMOD UART interrupt |
 | 43 | P414 | GPIO | PMOD UART GPIO1 |
 | 15 | P707 | GPIO | PMOD UART GPIO2 |
 | 1 | P400 | GPIO | PMOD UART GPIO3 |
 
-Note: P408/P409/P410 are shared with Ethernet RMII. If using Ethernet on J5, do not use PMOD UART simultaneously. The PMOD UART uses SCI channel 3 (not 4 as some board docs state).
+**Driver:** r_sci_uart on **SCI channel 0, pairing group B** (NOT SCI3 — P410-P413 only support SCI0, not SCI3).
 
-### PMOD SPI (J13)
+### PMOD SPI (J13) — CORRECTED
+
+**Corrected wiring (per README §5.5 + silicon pack data):**
 
 | Pin # | Pin | Function | Board Use |
 |-------|-----|----------|-----------|
-| 129 | P103 | SPI0.SS | SPI Slave Select |
-| 130 | P102 | SPI0.SCK | SPI Clock |
-| 131 | P100 | SPI0.MOSI | SPI Master Out / Slave In |
-| 132 | P101 | SPI0.MISO | SPI Master In / Slave Out |
-| 103 | P409 | IRQ6 | PMOD SPI interrupt |
+| 129 | P103 | SPI0.SSL0 | SPI Slave Select |
+| 130 | P102 | SPI0.RSPCK | SPI Clock |
+| 131 | P100 | SPI0.MISO | SPI Master In / Slave Out |
+| 132 | P101 | SPI0.MOSI | SPI Master Out / Slave In |
+| 103 | P409 | IRQ6 (GPIO input) | PMOD SPI interrupt |
 | 42 | P612 | GPIO | PMOD SPI GPIO1 |
 | 104 | P613 | GPIO | PMOD SPI GPIO2 |
 | 105 | P614 | GPIO | PMOD SPI GPIO3 |
+
+**Driver:** r_rspi on **SPI channel 0** (NOT r_sci_spi — SCI0 is used by PMOD UART, so the native RSPI peripheral is used instead).
 
 ### PMOD IIC (J18)
 
@@ -339,6 +363,8 @@ Exposes additional GPIO, ADC, SPI, I2C, UART pins. Pin mapping depends on which 
 |----------|---------|------|--------|------|------------|-----------|
 | g_timer0 | 0 | PWM | 10 ms | 50% | GTIOCA on P405 | PWM output (if NOT using Ethernet) |
 | g_timer1 | 1 | Periodic | 1 ms | — | — | General purpose timer tick |
+| g_timer2 | 2 | Periodic | 10 ms | — | — (no pin) | Sensor polling callback (IRQ priority 12) |
+| g_timer3 | 3 | Periodic | 100 ms | — | — (no pin) | Communication timeout callback (IRQ priority 12) |
 
 Config:
 - Shortest PWM signal: disabled
@@ -796,6 +822,8 @@ These 11 drivers were already generated successfully from the configuration.xml 
 |---|--------|----------|--------|
 | 1 | r_gpt | g_timer0 (PWM, ch0, 10ms, 50%) | Generated |
 | 2 | r_gpt | g_timer1 (Periodic, ch1, 1ms) | Generated |
+| 3 | r_gpt | g_timer2 (Periodic, ch2, 10ms, sensor poll) | Generated |
+| 4 | r_gpt | g_timer3 (Periodic, ch3, 100ms, comms timeout) | Generated |
 | 3 | r_adc | g_adc0 (12-bit, single scan, AN0+AN6) | Generated |
 | 4 | r_dac | g_dac0 (ch0, 12-bit, right-justified) | Generated |
 | 5 | r_dac | g_dac1 (ch1, 12-bit, right-justified) | Generated |
