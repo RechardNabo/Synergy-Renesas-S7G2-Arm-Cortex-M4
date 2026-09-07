@@ -42,6 +42,7 @@ Proudly presented by: CST Electronics, Electrocomp, Electrocomp Express, NuVisio
 | &nbsp;&nbsp;6.2 Connectivity | 16 |
 | &nbsp;&nbsp;6.3 J-Link | 17 |
 | 7 R7FS7G2 MCU — Full Specification, Board Capabilities & Applications *(added)* | — |
+| 8 Implementable Features — Suggested Learning Projects *(added)* | — |
 
 ---
 
@@ -488,5 +489,32 @@ Given the combination of a 240 MHz Cortex-M4, hardware graphics acceleration, Et
 
 ---
 
-*End of mirrored content — SABest-2017-RSP-datasheet.pdf (17 pages, Renesas Synergy S7G2 "SA-BEST 2017" Target Board Hardware User Manual), extended with Section 7 (MCU full specification, board capabilities, and applications) from Renesas' published S7G2 documentation.*
+## 8. Implementable Features — Suggested Learning Projects
+
+The following 10 features map directly to on-board hardware and the SSP HAL drivers already configured in `configuration.xml`. They are ordered from simplest (GPIO only) to most advanced (networking + GUI). Each feature lists the hardware resource, the SSP driver instance, and the key API entry points.
+
+| # | Feature | Hardware Resource | SSP Driver (Instance) | Key APIs | Difficulty |
+|---|---------|-------------------|----------------------|----------|------------|
+| 1 | **LED Blinker** | LED1 (P305, active low), LED2 (P801, active high) | r_ioport (`g_ioport`) | `pinDirectionSet`, `pinWrite`, `R_BSP_SoftwareDelay` | Beginner |
+| 2 | **USB Device CDC Console** | USB Device J3 (USB_DM/DP, P407 VBUS monitor) | r_usb_basic *(add via SSP GUI)* | `usbOpen`, CDC read/write callbacks | Advanced |
+| 3 | **Switch Input + Debounce** | SW1 reset, vibration sensor SW2 (P006/IRQ7) | r_ioport + r_elc (`g_elc`) | `pinRead`, IRQ callback, software debounce | Beginner |
+| 4 | **ADC Sampling** | Potentiometer (AN0/P000), vibration sensor (AN6/P006) | r_adc (`g_adc0`) | `adcOpen`, `adcScanStart`, `adcRead`, `adcClose` | Beginner |
+| 5 | **DAC Waveform Generation** | DAC0 output (DA0/P014), DAC1 output | r_dac (`g_dac0`, `g_dac1`) | `dacOpen`, `dacWrite`, `dacClose` | Intermediate |
+| 6 | **PWM Controller** | GPT1 PWM output (P405/GTIOCA) | r_gpt (`g_timer0`) | `timerOpen`, `timerDutyCycleSet`, `timerStart`, `timerStop` | Intermediate |
+| 7 | **PMOD UART Console** | PMOD UART J16 (P410 RXD, P411 TXD, P412 DTS, P413 CTS) | r_sci_uart (`g_uart0`) + r_dtc (`g_transfer0/1`) | `uartOpen`, `uartWrite`, `uartRead`, callback | Intermediate |
+| 8 | **PMOD SPI Master** | PMOD SPI J13 (P100 MOSI, P101 MISO, P102 SCK, P103 SSL) | r_sci_spi (`g_spi0`) | `spiOpen`, `spiWrite`, `spiRead`, `spiClose` | Intermediate |
+| 9 | **PMOD I2C Master** | PMOD IIC J18 (P205 SCL, P206 SDA, P203/P204 GPIO) | r_iic *(add via SSP GUI)* | `iicOpen`, `iicMasterWrite`, `iicMasterRead` | Intermediate |
+| 10 | **Graphics LCD Display** | Graphics LCD J15 (P111-P115, GLCDC) | r_glcd + r_drw *(add via SSP GUI)* | `glcdOpen`, `glcdStart`, `gx_canvas` drawing APIs | Advanced |
+
+### Implementation Notes
+
+- **Features 1, 3-8** are ready to implement immediately — their SSP driver instances are already generated in `src/synergy_gen/hal_data.c`.
+- **Features 2, 9, 10** require adding `r_usb_basic`, `r_iic`, and `r_glcd`/`r_drw` drivers respectively via the SSP Configurator GUI (see `SSP_CONFIGURATOR_GUIDE.md` Step 4).
+- **ThreadX RTOS** is bundled with SSP and can be used to run multiple features concurrently as separate threads.
+- **CAN** (2 channels on P511/P512) and **Ethernet** (RMII0 on J5) are additional advanced features not in the top-10 list but are documented in `SSP_CONFIGURATOR_GUIDE.md`.
+- See **`FEATURES.md`** for a concise feature-name reference.
+
+---
+
+*End of mirrored content — SABest-2017-RSP-datasheet.pdf (17 pages, Renesas Synergy S7G2 "SA-BEST 2017" Target Board Hardware User Manual), extended with Section 7 (MCU full specification, board capabilities, and applications) from Renesas' published S7G2 documentation, and Section 8 (implementable features).*
 *Note: Figures/photos and full schematic drawings are visual/graphical elements in the source PDF and are referenced here by their captions rather than reproduced as images.*

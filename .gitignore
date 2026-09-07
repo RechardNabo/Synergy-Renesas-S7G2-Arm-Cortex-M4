@@ -9,3 +9,7 @@
 /Temperature_Sensor/
 # SSP framework (generated, large)
 /synergy/
+# Debug tool binaries (J-Link DLL, gdb, e2-server-gdb - large third-party files)
+/tools/
+# Eclipse duplicate launch files
+Synergy_S7G2.elf (*).launch
